@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gawr Gura's Calculator</title>
+    <style>
+        .center {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+<div class="center">
+<script>
+    const prices = {
+        "Mouse": 750,
+        "Keyboard": 1500,
+        "Monitor": 12000,
+        "Motherboard": 4000,
+        "Hard drive": 2800,
+        "Table": 1500
+    };
+
+    const discountRates = {
+        "Mouse": 0.1, // 10%
+        "Keyboard": 0.15, // 15%
+        "Monitor": 0.07, // 7%
+        "Motherboard": 0.06, // 6%
+        "Hard drive": 0.1, // 10% (for 2 remaining items)
+        "Table": 0.1 // 10% (for 2 remaining items)
+    };
+
+    const discountThresholds = {
+        "Mouse": 1000,
+        "Keyboard": 2000,
+        "Monitor": 4000,
+        "Motherboard": 6000,
+        "Hard drive": 10000,
+        "Table": 10000
+    };
+
+    let product = prompt("Enter Product Name:");
+    let quantity = parseInt(prompt("Enter Amount"));
+    let student = prompt("Are you a student?").toLowerCase();
+
+    if (prices[product]) {
+        let totalprice = prices[product] * quantity;
+        document.write("Gross Total: " + totalprice);
+
+        if (student === "yes") {
+            let studentDiscount = totalprice * 0.05; // 5% student discount
+            totalprice -= studentDiscount;
+            document.write("<br>Student Discount: " + studentDiscount);
+        }
+
+        if (totalprice > discountThresholds[product]) {
+            let discount = totalprice * discountRates[product];
+            totalprice -= discount;
+            document.write("<br>Additional Discount: " + discount);
+        }
+
+        if (totalprice > 5000) {
+            let tax = totalprice * 0.08; // 8% tax
+            totalprice += tax;
+            document.write("<br>Tax: " + tax);
+        }
+
+        document.write("<br>Net Total for " + product + ": " + totalprice);
+    } else {
+        document.write("Product not found");
+    }
+</script>
+</div>
+</body>
+</html>
